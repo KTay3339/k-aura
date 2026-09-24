@@ -1,0 +1,7 @@
+import { eq } from "drizzle-orm";
+import { BadgeCheck, CalendarDays } from "lucide-react";
+import { getDb } from "@/db";
+import { providers } from "@/db/schema";
+export const dynamic="force-dynamic"; export const metadata={title:"Beauty Professionals | K Aura"};
+export default async function Professionals(){let rows:typeof providers.$inferSelect[]=[];try{rows=await getDb().select().from(providers).where(eq(providers.active,true))}catch{}
+return <main className="directory-page"><header className="inner-nav dark"><a className="brand" href="/">K <span>Aura</span></a><a href="/apply">Rent a space</a></header><section className="directory-hero"><p className="kicker">Independent. Verified. Bookable.</p><h1>Meet the beauty professionals<br/>working from <em>K Aura.</em></h1><p>Explore their services and book directly through each professional’s own scheduling page.</p></section><section className="provider-grid">{rows.length?rows.map(p=><a className="provider-card" href={`/professionals/${p.slug}`} key={p.id}><img src={`/api/profile-image/${p.id}`} alt={p.fullName}/><div><p>{p.profession}</p><h2>{p.businessName||p.fullName}</h2>{p.businessName&&<span>{p.fullName}</span>}<strong><BadgeCheck size={17}/> {p.verificationLabel}</strong><span className="view-profile">View profile <CalendarDays size={16}/></span></div></a>):<div className="empty-directory"><BadgeCheck size={36}/><h2>Our professional directory is opening soon.</h2><p>Bre’s team is reviewing the first K Aura profiles now.</p><a href="/apply">Apply to join K Aura</a></div>}</section></main>}

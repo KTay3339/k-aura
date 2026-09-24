@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1788368919542,
+      "tag": "0000_fair_shinobi_shaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788375235624,
+      "tag": "0001_wooden_scream",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789268644954,
+      "tag": "0002_romantic_franklin_storm",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+.marquee {
+  text-align: left;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-right 22s linear infinite;
+}
+
+.marquee-copy {
+  flex: none;
+  padding-right: 1.8rem;
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; transform: none; }
+  .marquee-copy:nth-child(2) { display: none; }
+}

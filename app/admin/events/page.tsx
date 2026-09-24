@@ -1,0 +1,8 @@
+import { asc, gte } from "drizzle-orm";
+import { chatGPTSignInPath,getChatGPTUser } from "@/app/chatgpt-auth";
+import { getDb } from "@/db";
+import { salonEvents } from "@/db/schema";
+import { requireAdmin } from "@/lib/admin";
+import EventManager from "./event-manager";
+export const dynamic="force-dynamic";
+export default async function EventsAdmin(){const user=await getChatGPTUser();if(!user)return <main className="admin-gate"><h1>Salon events</h1><a href={chatGPTSignInPath("/admin/events")} target="_top">Sign in securely</a></main>;if(!await requireAdmin())return <main className="admin-gate"><h1>Access not approved</h1><p>Bre has not added {user.email} to the admin team.</p></main>;const events=await getDb().select().from(salonEvents).where(gte(salonEvents.startsAt,new Date(Date.now()-86400000))).orderBy(asc(salonEvents.startsAt));return <main className="admin-page"><header><div><p>K Aura calendar</p><h1>Salon events</h1></div><div className="admin-links"><a href="/admin">Applications</a><a href="/admin/tours">Tour inquiries</a></div></header><EventManager/><section className="admin-list">{events.length?events.map(event=><article className="application-card" key={event.id}><div className="application-summary"><div><span>{event.eventType}</span><h2>{event.title}</h2><p>{event.description||"No description"}</p></div><strong>{event.startsAt.toLocaleString("en-US",{dateStyle:"medium",timeStyle:"short",timeZone:"America/Chicago"})}</strong></div><p>{event.location}</p></article>):<div className="admin-empty"><h2>No upcoming events.</h2><p>Use the form above to publish the first one.</p></div>}</section></main>}

@@ -1,0 +1,3 @@
+import ApplicationForm from "./application-form";
+export const metadata={title:"Apply to Rent | K Aura"};
+export default function ApplyPage(){return <main className="inner-page"><header className="inner-nav"><a className="brand" href="/">K <span>Aura</span></a><a href="/#spaces">View rental spaces</a></header><section className="form-hero"><p className="kicker">Join the K Aura community</p><h1>Work independently.<br/><em>Never work unsupported.</em></h1><p>Apply for flexible booth or larger-suite access. You remain in control of your own client scheduling and payments.</p></section><ApplicationForm/></main>}
